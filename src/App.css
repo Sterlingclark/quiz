@@ -25,10 +25,11 @@ button {
   color: white;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #06b891;
   transform: scale(1.05);
 }
 
@@ -66,4 +67,20 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/* Animations */
+.fireworks, .frownies {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.fireworks video, .frownies video {
+  width: 100%;
+  height: auto;
+}
+
+.modal.fade.show {
+  display: block;
 }

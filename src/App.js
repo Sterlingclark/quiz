@@ -13,6 +13,8 @@ function App() {
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [animation, setAnimation] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
@@ -57,7 +59,26 @@ function App() {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowScore(true);
+      setShowModal(true);
+      if (score + 1 === questions.length) {
+        setAnimation('fireworks');
+      } else if (score + 1 < questions.length / 2) {
+        setAnimation('frownies');
+      }
     }
+  };
+
+  const restartQuiz = () => { // restart quiz on user input
+    setSelectedCategory('');
+    setQuestionType('');
+    setDifficulty('');
+    setQuestions([]);
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowScore(false);
+    setUserAnswers([]);
+    setAnimation('');
+    setShowModal(false);
   };
 
   function decodeHTMLEntities(text) {
@@ -70,6 +91,9 @@ function App() {
     <div className="App container">
       <header className="my-4">
         <h1>Quiz App</h1>
+        {showScore && (
+          <button onClick={restartQuiz} className="btn btn-secondary">Redo Quiz</button>
+        )}
       </header>
 
       {loading ? (
@@ -89,6 +113,20 @@ function App() {
               </li>
             ))}
           </ul>
+          {animation === 'fireworks' && (
+            <div className="fireworks">
+              <video autoPlay loop muted>
+                <source src="/fireworks.mp4" type="video/mp4" />
+              </video>
+            </div>
+          )}
+          {animation === 'frownies' && (
+            <div className="frownies">
+              <video autoPlay loop muted>
+                <source src="/frowny-face.mp4" type="video/mp4" />
+              </video>
+            </div>
+          )}
         </div>
       ) : (
         <>
@@ -157,8 +195,42 @@ function App() {
       )}
 
       <footer className="mt-4">
-        <p>&copy; 2024 Quiz App. All rights reserved but not really.</p>
+        <p>&copy; 2024 Quiz App. All rights reserved.</p>
       </footer>
+
+      <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Your Score</h5>
+              <button type="button" className="close" onClick={() => setShowModal(false)} aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>You scored {score} out of {questions.length}</p>
+              {animation === 'fireworks' && (
+                <div className="fireworks">
+                  <video autoPlay loop muted>
+                    <source src="/fireworks.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              )}
+              {animation === 'frownies' && (
+                <div className="frownies">
+                  <video autoPlay loop muted>
+                    <source src="/frowny-face.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              )}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary" onClick={restartQuiz}>Restart Quiz</button>
+              <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
