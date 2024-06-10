@@ -17,7 +17,32 @@ useEffect(() => { // fetches the list of trivia categories from the API
     .then(data => setCategories(data.trivia_categories));
 }, []);
 
+const fetchQuestions = () => {
+  fetch(`https://opentdb.com/api.php?amount=5&category=${selectedCategory}&type=${questionType}`)
+    .then(response => response.json())
+    .then(data => setQuestions(data.results));
+};
 
+const handleCategoryChange = (e) => {
+  setSelectedCategory(e.target.value);
+};
+
+const handleTypeChange = (e) => {
+  setQuestionType(e.target.value);
+};
+
+const handleAnswerOptionClick = (isCorrect) => {
+  if (isCorrect) {
+    setScore(score + 1);
+  }
+
+  const nextQuestion = currentQuestion + 1;
+  if (nextQuestion < questions.length) {
+    setCurrentQuestion(nextQuestion);
+  } else {
+    setShowScore(true);
+  }
+};
 
 
 }
