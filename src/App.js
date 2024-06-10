@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -61,14 +62,14 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App container">
       {showScore ? (
         <div className="score-section">
           <h2>You scored {score} out of {questions.length}</h2>
           <h3>Review Your Answers:</h3>
-          <ul>
+          <ul className="list-group">
             {userAnswers.map((answer, index) => (
-              <li key={index}>
+              <li key={index} className="list-group-item">
                 <p><strong>Question:</strong> {decodeHTMLEntities(answer.question)}</p>
                 <p><strong>Your Answer:</strong> {decodeHTMLEntities(answer.answer)}</p>
                 <p><strong>Correct Answer:</strong> {decodeHTMLEntities(answer.correct)}</p>
@@ -78,12 +79,12 @@ function App() {
         </div>
       ) : (
         <>
-          <h1>Quiz App</h1>
+          <h1 className="my-4">Quiz App</h1>
           {questions.length === 0 ? (
-            <>
-              <div>
+            <div className="mb-4">
+              <div className="form-group">
                 <label>Select Category: </label>
-                <select value={selectedCategory} onChange={handleCategoryChange}>
+                <select value={selectedCategory} onChange={handleCategoryChange} className="form-control">
                   <option value="">Select</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
@@ -92,27 +93,27 @@ function App() {
                   ))}
                 </select>
               </div>
-              <div>
+              <div className="form-group">
                 <label>Select Type: </label>
-                <select value={questionType} onChange={handleTypeChange}>
+                <select value={questionType} onChange={handleTypeChange} className="form-control">
                   <option value="">Select</option>
                   <option value="multiple">Multiple Choice</option>
                   <option value="boolean">True / False</option>
                 </select>
               </div>
-              <div>
+              <div className="form-group">
                 <label>Select Difficulty: </label>
-                <select value={difficulty} onChange={handleDifficultyChange}>
+                <select value={difficulty} onChange={handleDifficultyChange} className="form-control">
                   <option value="">Select</option>
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
                 </select>
               </div>
-              <button onClick={fetchQuestions} disabled={!selectedCategory || !questionType || !difficulty}>
+              <button onClick={fetchQuestions} disabled={!selectedCategory || !questionType || !difficulty} className="btn btn-primary">
                 Start Quiz
               </button>
-            </>
+            </div>
           ) : (
             <>
               <div className="question-section">
@@ -130,6 +131,7 @@ function App() {
                     <button
                       key={index}
                       onClick={() => handleAnswerOptionClick(answerOption, answerOption === questions[currentQuestion].correct_answer)}
+                      className="btn btn-outline-primary btn-block"
                     >
                       {decodeHTMLEntities(answerOption)}
                     </button>
