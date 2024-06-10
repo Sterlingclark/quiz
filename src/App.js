@@ -59,7 +59,6 @@ function App() {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowScore(true);
-      setShowModal(true);
       if (score + 1 === questions.length) {
         setAnimation('fireworks');
       } else if (score + 1 < questions.length / 2) {
@@ -68,7 +67,11 @@ function App() {
     }
   };
 
-  const restartQuiz = () => { // restart quiz on user input
+  const handleViewScoreClick = () => {
+    setShowModal(true);
+  };
+
+  const restartQuiz = () => {
     setSelectedCategory('');
     setQuestionType('');
     setDifficulty('');
@@ -92,7 +95,10 @@ function App() {
       <header className="my-4">
         <h1>Quiz App</h1>
         {showScore && (
-          <button onClick={restartQuiz} className="btn btn-secondary">Redo Quiz</button>
+          <div>
+            <button onClick={restartQuiz} className="btn btn-secondary mr-2">Restart Quiz</button>
+            <button onClick={handleViewScoreClick} className="btn btn-primary">View Score</button>
+          </div>
         )}
       </header>
 
@@ -113,20 +119,6 @@ function App() {
               </li>
             ))}
           </ul>
-          {animation === 'fireworks' && (
-            <div className="fireworks">
-              <video autoPlay loop muted>
-                <source src="/fireworks.mp4" type="video/mp4" />
-              </video>
-            </div>
-          )}
-          {animation === 'frownies' && (
-            <div className="frownies">
-              <video autoPlay loop muted>
-                <source src="/frowny-face.mp4" type="video/mp4" />
-              </video>
-            </div>
-          )}
         </div>
       ) : (
         <>
