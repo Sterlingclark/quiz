@@ -17,6 +17,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [totalTestsTaken, setTotalTestsTaken] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [quizCompleted, setQuizCompleted] = useState(false); // New state variable
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
@@ -63,6 +64,7 @@ function App() {
       setShowScore(true);
       setTotalTestsTaken(totalTestsTaken + 1);
       setTotalScore(totalScore + score + 1);
+      setQuizCompleted(true); // Set quizCompleted to true
 
       if (score + 1 === questions.length) {
         setAnimation('fireworks');
@@ -76,7 +78,7 @@ function App() {
     setShowModal(true);
   };
 
-  const restartQuiz = () => {
+  const restartQuiz = () => { // restarts quiz 
     setSelectedCategory('');
     setQuestionType('');
     setDifficulty('');
@@ -99,7 +101,9 @@ function App() {
     <div className="App container">
       <header className="my-4">
         <h1>Quiz App</h1>
-        <button onClick={handleViewTotalClick} className="btn btn-info mr-2">View Total Score</button>
+        {quizCompleted && (
+          <button onClick={handleViewTotalClick} className="btn btn-info mr-2">View Total Score</button>
+        )}
         {showScore && (
           <button onClick={restartQuiz} className="btn btn-secondary">Restart Quiz</button>
         )}
@@ -204,7 +208,7 @@ function App() {
       )}
 
       <footer className="mt-4">
-        <p>&copy; 2024 Quiz App. All rights reserved. But not Really.</p>
+        <p>&copy; 2024 Quiz App. All rights reserved.</p>
       </footer>
 
       <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
