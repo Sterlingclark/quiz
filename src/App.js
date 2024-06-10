@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from "react";
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [categories, setCategories] = useState([]);
+const [selectedCategory, setSelectedCategory] = useState('');
+const [questionType, setQuestionType] = useState('');
+const [questions, setQuestions] = useState([]);
+const [currentQuestion, setCurrentQuestion] = useState(0);
+const [score, setScore] = useState(0);
+const [showScore, setShowScore] = useState(false);
+
+
+useEffect(() => { // fetches the list of trivia categories from the API 
+  fetch('https://opentdb.com/api_category.php')
+    .then(response => response.json())
+    .then(data => setCategories(data.trivia_categories));
+}, []);
+
+
+
+
 }
 
 export default App;
