@@ -78,7 +78,7 @@ function App() {
     setShowModal(true);
   };
 
-  const restartQuiz = () => { // restarts quiz 
+  const restartQuiz = () => {
     setSelectedCategory('');
     setQuestionType('');
     setDifficulty('');
@@ -100,7 +100,8 @@ function App() {
   return (
     <div className="App container">
       <header className="my-4">
-        <h1>Quiz App</h1>
+        <h1>Billy Quiz Boy!
+        </h1>
         {quizCompleted && (
           <button onClick={handleViewTotalClick} className="btn btn-info mr-2">View Total Score</button>
         )}
@@ -126,20 +127,6 @@ function App() {
               </li>
             ))}
           </ul>
-          {animation === 'fireworks' && (
-            <div className="animation-container">
-              <video className="animation" autoPlay loop muted>
-                <source src={`${process.env.PUBLIC_URL}/fireworks.mp4`} type="video/mp4" />
-              </video>
-            </div>
-          )}
-          {animation === 'frownies' && (
-            <div className="animation-container">
-              <div style={{width: '100%', height: '0', paddingBottom: '83%', position: 'relative'}}>
-                <iframe src="https://giphy.com/embed/OPU6wzx8JrHna" width="100%" height="100%" style={{position: 'absolute'}} frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
-              </div>
-            </div>
-          )}
         </div>
       ) : (
         <>
@@ -208,7 +195,7 @@ function App() {
       )}
 
       <footer className="mt-4">
-        <p>&copy; 2024 Quiz App. All rights reserved.</p>
+        <p>&copy; 2024 Quiz App. All rights reserved. But not Really</p>
       </footer>
 
       <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
@@ -223,6 +210,20 @@ function App() {
             <div className="modal-body">
               <p>Total Tests Taken: {totalTestsTaken}</p>
               <p>Total Score: {totalScore}</p>
+              {animation === 'fireworks' && (
+                <div className="animation-container">
+                  <video className="animation" autoPlay loop muted>
+                    <source src={`${process.env.PUBLIC_URL}/fireworks.mp4`} type="video/mp4" />
+                  </video>
+                </div>
+              )}
+              {animation === 'frownies' && (
+                <div className="animation-container">
+                  <div style={{width: '100%', height: '0', paddingBottom: '83%', position: 'relative'}}>
+                    <iframe src="https://giphy.com/embed/OPU6wzx8JrHna" width="100%" height="100%" style={{position: 'absolute'}} frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
