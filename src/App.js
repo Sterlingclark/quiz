@@ -86,6 +86,7 @@ function App() {
     setShowScore(false);
     setUserAnswers([]);
     setAnimation('');
+    setShowModal(false);
   };
 
   function decodeHTMLEntities(text) {
@@ -124,15 +125,15 @@ function App() {
           {animation === 'fireworks' && (
             <div className="animation-container">
               <video className="animation" autoPlay loop muted>
-                <source src="/fireworks.mp4" type="video/mp4" />
+                <source src={`${process.env.PUBLIC_URL}/fireworks.mp4`} type="video/mp4" />
               </video>
             </div>
           )}
           {animation === 'frownies' && (
             <div className="animation-container">
-              <video className="animation" autoPlay loop muted>
-                <source src="/frowny-face.mp4" type="video/mp4" />
-              </video>
+              <div style={{width: '100%', height: '0', paddingBottom: '83%', position: 'relative'}}>
+                <iframe src="https://giphy.com/embed/OPU6wzx8JrHna" width="100%" height="100%" style={{position: 'absolute'}} frameBorder="0" className="giphy-embed" allowFullScreen></iframe>
+              </div>
             </div>
           )}
         </div>
@@ -203,7 +204,7 @@ function App() {
       )}
 
       <footer className="mt-4">
-        <p>&copy; 2024 Quiz App. All rights reserved.</p>
+        <p>&copy; 2024 Quiz App. All rights reserved. But not Really.</p>
       </footer>
 
       <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
