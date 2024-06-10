@@ -157,7 +157,7 @@ function App() {
       )}
 
       <footer className="mt-4">
-        <p>&copy; 2024 Quiz App. All rights reserved.</p>
+        <p>&copy; 2024 Quiz App. All rights reserved but not really.</p>
       </footer>
     </div>
   );
