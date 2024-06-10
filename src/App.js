@@ -12,6 +12,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
@@ -20,9 +21,13 @@ function App() {
   }, []);
 
   const fetchQuestions = () => {
+    setLoading(true);
     fetch(`https://opentdb.com/api.php?amount=5&category=${selectedCategory}&type=${questionType}&difficulty=${difficulty}`)
       .then(response => response.json())
-      .then(data => setQuestions(data.results));
+      .then(data => {
+        setQuestions(data.results);
+        setLoading(false);
+      });
   };
 
   const handleCategoryChange = (e) => {
@@ -63,7 +68,15 @@ function App() {
 
   return (
     <div className="App container">
-      {showScore ? (
+      <header className="my-4">
+        <h1>Quiz App</h1>
+      </header>
+
+      {loading ? (
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : showScore ? (
         <div className="score-section">
           <h2>You scored {score} out of {questions.length}</h2>
           <h3>Review Your Answers:</h3>
@@ -79,7 +92,6 @@ function App() {
         </div>
       ) : (
         <>
-          <h1 className="my-4">Quiz App</h1>
           {questions.length === 0 ? (
             <div className="mb-4">
               <div className="form-group">
@@ -115,32 +127,38 @@ function App() {
               </button>
             </div>
           ) : (
-            <>
-              <div className="question-section">
-                <div className="question-count">
-                  <span>Question {currentQuestion + 1}</span>/{questions.length}
+            <div className="card my-4">
+              <div className="card-body">
+                <div className="question-section">
+                  <div className="question-count">
+                    <span>Question {currentQuestion + 1}</span>/{questions.length}
+                  </div>
+                  <div className="question-text">
+                    {decodeHTMLEntities(questions[currentQuestion].question)}
+                  </div>
                 </div>
-                <div className="question-text">
-                  {decodeHTMLEntities(questions[currentQuestion].question)}
+                <div className="answer-section">
+                  {questions[currentQuestion].incorrect_answers.concat(questions[currentQuestion].correct_answer)
+                    .sort(() => Math.random() - 0.5)
+                    .map((answerOption, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleAnswerOptionClick(answerOption, answerOption === questions[currentQuestion].correct_answer)}
+                        className="btn btn-outline-primary btn-block my-2"
+                      >
+                        {decodeHTMLEntities(answerOption)}
+                      </button>
+                    ))}
                 </div>
               </div>
-              <div className="answer-section">
-                {questions[currentQuestion].incorrect_answers.concat(questions[currentQuestion].correct_answer)
-                  .sort(() => Math.random() - 0.5)
-                  .map((answerOption, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleAnswerOptionClick(answerOption, answerOption === questions[currentQuestion].correct_answer)}
-                      className="btn btn-outline-primary btn-block"
-                    >
-                      {decodeHTMLEntities(answerOption)}
-                    </button>
-                  ))}
-              </div>
-            </>
+            </div>
           )}
         </>
       )}
+
+      <footer className="mt-4">
+        <p>&copy; 2024 Quiz App. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
