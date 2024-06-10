@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/quiz/static/css/main.3591378d.chunk.css",
+    "main.css": "/quiz/static/css/main.9df435fa.chunk.css",
     "main.js": "/quiz/static/js/main.abaf8b91.chunk.js",
     "main.js.map": "/quiz/static/js/main.abaf8b91.chunk.js.map",
     "runtime~main.js": "/quiz/static/js/runtime~main.e6ae5a1e.js",
@@ -9,9 +9,9 @@
     "static/js/2.8b298799.chunk.js": "/quiz/static/js/2.8b298799.chunk.js",
     "static/js/2.8b298799.chunk.js.map": "/quiz/static/js/2.8b298799.chunk.js.map",
     "index.html": "/quiz/index.html",
-    "precache-manifest.9ef78f0e4f3ba4889acae5a120f4841f.js": "/quiz/precache-manifest.9ef78f0e4f3ba4889acae5a120f4841f.js",
+    "precache-manifest.93a0264d542ac968f11b35f709f2cbb3.js": "/quiz/precache-manifest.93a0264d542ac968f11b35f709f2cbb3.js",
     "service-worker.js": "/quiz/service-worker.js",
     "static/css/2.98036eff.chunk.css.map": "/quiz/static/css/2.98036eff.chunk.css.map",
-    "static/css/main.3591378d.chunk.css.map": "/quiz/static/css/main.3591378d.chunk.css.map"
+    "static/css/main.9df435fa.chunk.css.map": "/quiz/static/css/main.9df435fa.chunk.css.map"
   }
 }
