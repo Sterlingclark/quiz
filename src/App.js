@@ -122,15 +122,15 @@ function App() {
             ))}
           </ul>
           {animation === 'fireworks' && (
-            <div className="fireworks">
-              <video autoPlay loop muted>
+            <div className="animation-container">
+              <video className="animation" autoPlay loop muted>
                 <source src="/fireworks.mp4" type="video/mp4" />
               </video>
             </div>
           )}
           {animation === 'frownies' && (
-            <div className="frownies">
-              <video autoPlay loop muted>
+            <div className="animation-container">
+              <video className="animation" autoPlay loop muted>
                 <source src="/frowny-face.mp4" type="video/mp4" />
               </video>
             </div>
